@@ -1,5 +1,6 @@
 package io.github.grusnac.travel.weatherer.itinerary;
 
+import io.github.grusnac.travel.weatherer.weather.CityView;
 import io.github.grusnac.travel.weatherer.weather.WeatherView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/itineraries")
 public class ItineraryController {
@@ -20,7 +22,7 @@ public class ItineraryController {
         return ItineraryView.builder()
                 .withId(id)
                 .withDepartureDate(LocalDate.now().plusDays(1))
-                .withCities(List.of(ItineraryView.CityView.builder()
+                .withCities(List.of(CityView.builder()
                         .withId(1L)
                         .withCountryCode("AU")
                         .withName("Cairns")

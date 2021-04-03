@@ -5,15 +5,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "itineraries")
+@Table(name = "ITINERARIES")
 public class ItineraryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDate date;
     @ManyToMany(targetEntity = CityEntity.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "itineraries_cities",
+    @JoinTable(name = "ITINERARIES_CITIES",
             joinColumns = @JoinColumn(name = "itinerary_id"),
             inverseJoinColumns = @JoinColumn(name = "city_id"))
     private List<CityEntity> cities;

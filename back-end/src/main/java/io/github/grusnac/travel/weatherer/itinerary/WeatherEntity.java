@@ -4,22 +4,22 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "weather")
+@Table(name = "WEATHER")
 public class WeatherEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String main;
-    private String temperature;
-    private String pressure;
-    private String humidity;
+    private int temperature;
+    private int pressure;
+    private int humidity;
     private String clouds;
     private LocalDate day;
 
     protected WeatherEntity() {}
 
-    public WeatherEntity(String main, String temperature, String pressure, String humidity, String clouds,
+    public WeatherEntity(String main, int temperature, int pressure, int humidity, String clouds,
                          LocalDate day) {
         this.main = main;
         this.temperature = temperature;
@@ -41,27 +41,27 @@ public class WeatherEntity {
         this.main = main;
     }
 
-    public String getTemperature() {
+    public int getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(String temperature) {
+    public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
 
-    public String getPressure() {
+    public int getPressure() {
         return pressure;
     }
 
-    public void setPressure(String pressure) {
+    public void setPressure(int pressure) {
         this.pressure = pressure;
     }
 
-    public String getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(String humidity) {
+    public void setHumidity(int humidity) {
         this.humidity = humidity;
     }
 

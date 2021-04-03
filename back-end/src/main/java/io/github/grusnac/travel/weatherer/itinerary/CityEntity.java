@@ -4,16 +4,16 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "cities")
+@Table(name = "CITIES")
 public class CityEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String countryCode;
     @OneToMany(targetEntity = WeatherEntity.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST},
-            orphanRemoval = true)
+            orphanRemoval = true, mappedBy = "id")
     private List<WeatherEntity> weather;
 
     protected CityEntity() {}
