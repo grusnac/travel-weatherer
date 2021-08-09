@@ -5,8 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Collection;
 
 @Configuration
 @SpringBootApplication
@@ -22,8 +25,10 @@ public class TravelWeathererApplication {
     }
 
     @Bean
-    public ConversionService conversionService() {
-        return new DefaultConversionService();
+    public ConversionService conversionService(Collection<Converter<?,?>> converters) {
+        final DefaultConversionService defaultConversionService = new DefaultConversionService();
+        converters.forEach(defaultConversionService::addConverter);
+        return defaultConversionService;
     }
 
 }

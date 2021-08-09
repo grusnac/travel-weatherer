@@ -2,6 +2,7 @@ package io.github.grusnac.travel.weatherer.itinerary;
 
 import io.github.grusnac.travel.weatherer.weather.CityView;
 import io.github.grusnac.travel.weatherer.weather.WeatherView;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/itineraries")
 public class ItineraryController {
+
+    private final ConversionService conversionService;
+    private final ItineraryRepository itineraryRepository;
+
+    public ItineraryController(ConversionService conversionService, ItineraryRepository itineraryRepository) {
+        this.conversionService = conversionService;
+        this.itineraryRepository = itineraryRepository;
+    }
 
     @GetMapping("/{id}")
     public ItineraryView getItinerary(@PathVariable final long id) {
@@ -44,7 +53,14 @@ public class ItineraryController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> addItineraries(@Valid ItineraryAdditionRequest itineraryAdditionRequest) {
+    public ResponseEntity<HttpStatus> addItineraries(
+            @RequestBody @Valid ItineraryAdditionRequest itineraryAdditionRequest) {
+        final ItineraryEntity itineraryEntity = conversionService.convert(
+                itineraryAdditionRequest,
+                ItineraryEntity.class
+        );
+        assert itineraryEntity != null;
+        itineraryRepository.save(itineraryEntity);
         return ResponseEntity.ok().build();
     }
 }

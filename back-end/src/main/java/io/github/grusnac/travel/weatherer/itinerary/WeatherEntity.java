@@ -11,15 +11,15 @@ public class WeatherEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String main;
-    private int temperature;
-    private int pressure;
-    private int humidity;
+    private Double temperature;
+    private Double pressure;
+    private Double humidity;
     private String clouds;
     private LocalDate day;
 
     protected WeatherEntity() {}
 
-    public WeatherEntity(String main, int temperature, int pressure, int humidity, String clouds,
+    public WeatherEntity(String main, Double temperature, Double pressure, Double humidity, String clouds,
                          LocalDate day) {
         this.main = main;
         this.temperature = temperature;
@@ -41,27 +41,27 @@ public class WeatherEntity {
         this.main = main;
     }
 
-    public int getTemperature() {
+    public Double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(int temperature) {
+    public void setTemperature(Double temperature) {
         this.temperature = temperature;
     }
 
-    public int getPressure() {
+    public Double getPressure() {
         return pressure;
     }
 
-    public void setPressure(int pressure) {
+    public void setPressure(Double pressure) {
         this.pressure = pressure;
     }
 
-    public int getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(int humidity) {
+    public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
 

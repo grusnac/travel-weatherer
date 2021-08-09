@@ -1,7 +1,6 @@
 package io.github.grusnac.travel.weatherer.itinerary;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "CITIES")
@@ -12,13 +11,14 @@ public class CityEntity {
     private long id;
     private String name;
     private String countryCode;
-    @OneToMany(targetEntity = WeatherEntity.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST},
-            orphanRemoval = true, mappedBy = "id")
-    private List<WeatherEntity> weather;
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    private WeatherEntity weather;
 
-    protected CityEntity() {}
+    protected CityEntity() {
+    }
 
-    public CityEntity(String name, String countryCode, List<WeatherEntity> weather) {
+    public CityEntity(String name, String countryCode, WeatherEntity weather) {
         this.name = name;
         this.countryCode = countryCode;
         this.weather = weather;
@@ -44,11 +44,11 @@ public class CityEntity {
         this.countryCode = countryCode;
     }
 
-    public List<WeatherEntity> getWeather() {
+    public WeatherEntity getWeather() {
         return weather;
     }
 
-    public void setWeather(List<WeatherEntity> weather) {
+    public void setWeather(WeatherEntity weather) {
         this.weather = weather;
     }
 }

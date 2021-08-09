@@ -1,8 +1,7 @@
 package io.github.grusnac.travel.weatherer.itinerary;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "ITINERARIES")
@@ -11,18 +10,21 @@ public class ItineraryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDate date;
-    @ManyToMany(targetEntity = CityEntity.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private String name;
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST
+    })
     @JoinTable(name = "ITINERARIES_CITIES",
             joinColumns = @JoinColumn(name = "itinerary_id"),
             inverseJoinColumns = @JoinColumn(name = "city_id"))
-    private List<CityEntity> cities;
+    private Set<CityEntity> cities;
 
     protected ItineraryEntity() {
     }
 
-    public ItineraryEntity(LocalDate date, List<CityEntity> cities) {
-        this.date = date;
+    public ItineraryEntity(String name, Set<CityEntity> cities) {
+        this.name = name;
         this.cities = cities;
     }
 
@@ -30,19 +32,19 @@ public class ItineraryEntity {
         return id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getName() {
+        return name;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<CityEntity> getCities() {
+    public Set<CityEntity> getCities() {
         return cities;
     }
 
-    public void setCities(List<CityEntity> cities) {
+    public void setCities(Set<CityEntity> cities) {
         this.cities = cities;
     }
 }
